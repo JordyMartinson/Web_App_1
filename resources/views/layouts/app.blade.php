@@ -7,10 +7,14 @@
         <title>Web Application - @yield('title')</title>
     </head>
     <body>
+        <a href="/posts">Posts</a>
         <h1>Web Application - @yield('title')</h1>
 
         <div>
             @yield('content')
+        </div>
+        <div>
+            @yield('commenting')
         </div>
         
     </body>

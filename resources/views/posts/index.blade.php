@@ -10,7 +10,7 @@
 
     <ul>
         @foreach ($posts as $post)
-            <li> {{$post -> content}} </li>
+            <li><a href="/posts/{{$post->id}}">{{$post -> title}}</a></li>
         @endforeach
     </ul>
 
