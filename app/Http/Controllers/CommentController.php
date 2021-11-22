@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Comment;
 use App\Models\User;
+use App\Models\Post;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('posts.index', ['posts' => $posts]);
+        $comments = Comment::all();
+        return view('comments.index', ['comments' => $comments]);
     }
 
     /**
@@ -26,7 +27,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        // $users = User::orderBy('name', 'asc')->get();
+        // $posts = Post::orderBy('title', 'asc')->get();
+        $users = User::all();
+        $posts = Post::all();
+        return view('comments.create', ['users' => $users, 'posts' => $posts]);
     }
 
     /**
@@ -38,19 +43,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request -> validate([
-            'title' => 'required|max:100',
-            'content' => 'required|max:500'
+            'content' => 'required|max:100',
+            'user_id' => 'required', //change
+            'post_id' => 'required'  //change
         ]);
 
-        $p = new Post;
-        $p -> title = $validatedData['title'];
-        $p -> content = $validatedData['content'];
-        $p -> user_id = 1; // change
-        $p->save();
+        $c = new Comment;
+        $c -> content = $validatedData['content'];
+        $c -> user_id = $validatedData['user_id']; // change
+        $c -> post_id = $validatedData['post_id']; // change
+        $c -> save();
 
-        session() -> flash('message', 'Post created.');
+        session() -> flash('message', 'Comment created.');
 
-        return redirect()->route('posts.index');
+        return redirect() -> route('posts.index');
     }
 
     /**
@@ -61,10 +67,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-        $users = User::all();
-        $posts = Post::all();
-        return view('posts.show', ['post' => $post, 'users' => $users, 'posts' => $posts]);
+        $comment = Comment::findOrFail($id);
+        return view('comments.show', ['comment' => $comment]);
     }
 
     /**

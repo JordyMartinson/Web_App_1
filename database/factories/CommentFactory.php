@@ -16,8 +16,7 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $u = User::has('posts')-> get() -> shuffle() -> first();
-        // $u = User::get() -> inRandomOrder() -> first();
+        $u = User::has('posts') -> get() -> shuffle() -> first();
         return [
             'content' => $this -> faker -> sentence(rand(3, 5)),
             'user_id' => $u -> id,

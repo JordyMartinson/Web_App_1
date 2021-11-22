@@ -10,6 +10,34 @@
         <p>Poster: {{$post -> user -> name}}</p>
         <br>
 
+
+
+        <form method = "POST" action = "{{route('comments.store')}}">
+            @csrf
+            <p>Content: <input type = "text" name = "content"></p>
+    
+            <p>
+                <label for="user_id">User: </label>
+                <select name="user_id">
+                    @foreach ($users as $user)
+                        <option value="{{$user -> id}}">{{$user -> name}}</option>
+                    @endforeach
+                </select>
+            </p>
+    
+            <p>
+                <label for="post_id">Post: </label>
+                <select name="post_id">
+                    <option value="{{$post -> id}}">{{$post -> title}}</option>
+                </select>
+            </p>
+    
+            <input type = "submit" value = "Submit">
+            <a href = "{{route('comments.index')}}">Cancel</a>
+        </form>
+
+
+
         @php ($count = $post -> comments() -> count())
         @if ($count > 0)
             @for ($i = 0; $i < $count; $i++)

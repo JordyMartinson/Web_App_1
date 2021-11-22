@@ -8,6 +8,7 @@
     </head>
     <body>
         <a href="/posts">Posts</a>
+        <a href="/comments">Comments</a>
         <h1>Web Application - @yield('title')</h1>
 
         @if ($errors->any())
