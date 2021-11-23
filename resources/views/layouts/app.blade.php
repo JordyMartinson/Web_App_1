@@ -9,6 +9,14 @@
     <body>
         <a href="/posts">Posts</a>
         <a href="/comments">Comments</a>
+
+        @auth
+        <form method ="POST" action="/logout">
+            @csrf
+            <button type = "submit">Logout</button>
+        </form>
+        @endauth
+
         <h1>Web Application - @yield('title')</h1>
 
         @if ($errors->any())

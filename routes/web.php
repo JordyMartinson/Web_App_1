@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/home', function () {
+    return view('home');
+})->middleware(['auth'])->name('home');
+
 Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware(['auth']);
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware(['auth']);
 Route::post('/users', [UserController::class, 'store'])->name('users.store')->middleware(['auth']);
@@ -37,6 +42,8 @@ Route::get('/comments', [CommentController::class, 'index'])->name('comments.ind
 Route::get('/comments/create', [commentController::class, 'create'])->name('comments.create')->middleware(['auth']);
 Route::post('/comments', [commentController::class, 'store'])->name('comments.store')->middleware(['auth']);
 Route::get('/comments/{id}', [commentController::class, 'show'])->name('comments.show')->middleware(['auth']);
+
+Route::post('logout', [SessionController::class], 'destroy');
 
 
 require __DIR__.'/auth.php';
