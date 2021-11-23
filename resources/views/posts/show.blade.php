@@ -19,9 +19,9 @@
             <p>
                 <label for="user_id">User: </label>
                 <select name="user_id">
-                    @foreach ($users as $user)
+                    {{-- @foreach ($users as $user) --}}
                         <option value="{{$user -> id}}">{{$user -> name}}</option>
-                    @endforeach
+                    {{-- @endforeach --}}
                 </select>
             </p>
     

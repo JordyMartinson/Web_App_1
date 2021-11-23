@@ -64,9 +64,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        $users = User::all();
+        $user = auth()->user();
         $posts = Post::all();
-        return view('posts.show', ['post' => $post, 'users' => $users, 'posts' => $posts]);
+        return view('posts.show', ['post' => $post, 'user' => $user, 'posts' => $posts]);
     }
 
     /**

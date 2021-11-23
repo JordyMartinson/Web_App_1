@@ -23,7 +23,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-// Route::get('/users', 'UserController@index');
+Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware(['auth']);
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware(['auth']);
+Route::post('/users', [UserController::class, 'store'])->name('users.store')->middleware(['auth']);
+Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show')->middleware(['auth']);
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware(['auth']);
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware(['auth']);

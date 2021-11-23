@@ -6,14 +6,12 @@
 
     <form method = "POST" action = "{{route('comments.store')}}">
         @csrf
-        <p>Content: <input type = "text" name = "content"></p>
+        <p>Content: <input type = "text" name = "content" id="content" onfocus ="this.value = ''" value = "Enter your comment here"></p>
 
         <p>
             <label for="user_id">User: </label>
             <select name="user_id">
-                @foreach ($users as $user)
-                    <option value="{{$user -> id}}">{{$user -> name}}</option>
-                @endforeach
+                <option value="{{$user -> id}}">{{$user -> name}}</option>
             </select>
         </p>
 
@@ -26,8 +24,25 @@
             </select>
         </p>
 
-        <input type = "submit" value = "Submit">
-        <a href = "{{route('comments.index')}}">Cancel</a>
-    </form>
+        <input type = "submit" value = "Submit" id = "submit" disabled>
+        <input type = "reset" value = "Cancel" onclick = "enableSubmit()");>
 
+        <script>        
+            document.getElementById("content").addEventListener("keyup", function() {
+            var contentIn = document.getElementById('content').value;
+            if (contentIn != "") {
+                document.getElementById('submit').removeAttribute("disabled");
+            } else {
+                document.getElementById('submit').setAttribute("disabled", null);
+            }
+        });
+        </script>
+
+        <script>
+            function enableSubmit() {
+                document.getElementById('submit').disabled =true;
+            }
+        </script>
+
+    </form>
 @endsection

@@ -29,9 +29,13 @@ class CommentController extends Controller
     {
         // $users = User::orderBy('name', 'asc')->get();
         // $posts = Post::orderBy('title', 'asc')->get();
-        $users = User::all();
+        // $users = User::all();
+        // $posts = Post::all();
+        // return view('comments.create', ['users' => $users, 'posts' => $posts]);
+
+        $user = Auth() -> user();
         $posts = Post::all();
-        return view('comments.create', ['users' => $users, 'posts' => $posts]);
+        return view('comments.create', ['user' => $user, 'posts' => $posts]);
     }
 
     /**
