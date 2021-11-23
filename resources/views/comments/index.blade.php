@@ -9,7 +9,14 @@
     <p>Comments from users: </p>
 
     <ul>
-        @foreach ($users as $user)
+        <label for="selectUser">Choose user: </label>
+        <select name="selectUser" id="selectUser">
+            <option value="all">All</option>
+            @foreach ($users as $user)
+            <option value={{$user->id}}>{{$user->name}}</option>
+            @endforeach
+        </select>
+            {{-- @foreach ($users as $user) --}}
             <h3>{{$user -> name}}</h3>
                 @php ($count = $user -> comments() -> count())
                 @if ($count == 0)
@@ -21,7 +28,9 @@
                 @endif
             </p>
             <br>
-        @endforeach
+        {{-- @endforeach --}}
+        {{-- @endif --}}
+        
     </ul>
 
     <a href = "{{route('comments.create')}}">Create Comment</a>
