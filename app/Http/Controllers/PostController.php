@@ -26,7 +26,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $user = Auth() -> user();
+        return view('posts.create', ['user' => $user]);
     }
 
     /**
@@ -39,13 +40,14 @@ class PostController extends Controller
     {
         $validatedData = $request -> validate([
             'title' => 'required|max:100',
-            'content' => 'required|max:500'
+            'content' => 'required|max:500',
+            'user_id' => 'required'
         ]);
 
         $p = new Post;
         $p -> title = $validatedData['title'];
         $p -> content = $validatedData['content'];
-        $p -> user_id = 1; // change
+        $p -> user_id = $validatedData['user_id'];
         $p->save();
 
         session() -> flash('message', 'Post created.');

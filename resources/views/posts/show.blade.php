@@ -14,7 +14,7 @@
 
         <form method = "POST" action = "{{route('comments.store')}}">
             @csrf
-            <p>Content: <input type = "text" name = "content"></p>
+            <p>Content: <input type = "text" name = "content" onfocus ="this.value = ''" value = "Enter your comment here"></p>
     
             <p>
                 <label for="user_id">User: </label>
@@ -33,7 +33,8 @@
             </p>
     
             <input type = "submit" value = "Submit">
-            <a href = "{{route('comments.index')}}">Cancel</a>
+            <input type = "reset" value = "Cancel">
+            {{-- <a href = "{{route('posts.index')}}" onclick="document.getElementById('content').value =">Cancel</a> --}}
         </form>
 
 
@@ -41,8 +42,8 @@
         @php ($count = $post -> comments() -> count())
         @if ($count > 0)
             @for ($i = 0; $i < $count; $i++)
-            <p>{{$post -> comments[$i] -> content}}<br>
-            From {{$post -> comments[$i] -> user -> name}}</p>
+                <p>{{$post -> comments[$i] -> content}}<br>
+                From {{$post -> comments[$i] -> user -> name}}</p>
             @endfor
         @endif
     </ul>

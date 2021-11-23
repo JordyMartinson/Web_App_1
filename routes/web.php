@@ -25,15 +25,15 @@ Route::get('/dashboard', function () {
 
 // Route::get('/users', 'UserController@index');
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware(['auth']);
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware(['auth']);
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware(['auth']);
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show')->middleware(['auth']);
 
-Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
-Route::get('/comments/create', [commentController::class, 'create'])->name('comments.create');
-Route::post('/comments', [commentController::class, 'store'])->name('comments.store');
-Route::get('/comments/{id}', [commentController::class, 'show'])->name('comments.show');
+Route::get('/comments', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth']);
+Route::get('/comments/create', [commentController::class, 'create'])->name('comments.create')->middleware(['auth']);
+Route::post('/comments', [commentController::class, 'store'])->name('comments.store')->middleware(['auth']);
+Route::get('/comments/{id}', [commentController::class, 'show'])->name('comments.show')->middleware(['auth']);
 
 
 require __DIR__.'/auth.php';
