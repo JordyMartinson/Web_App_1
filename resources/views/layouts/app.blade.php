@@ -7,6 +7,7 @@
         <title>Web Application - @yield('title')</title>
     </head>
     <body>
+        <a href="/home">Home</a>
         <a href="/posts">Posts</a>
         <a href="/comments">Comments</a>
 
