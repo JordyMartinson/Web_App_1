@@ -14,10 +14,17 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $users = User::orderBy('name', 'asc')->get();
-        $chosenUser = User::first()->id;
+        // if ($id = "All") {
+        //     $chosenUser = "All";
+        // }
+        // else {
+        //     $chosenUser = User::findOrFail($id)->id;
+        // }
+        $chosenUser = User::findOrFail($id)->id;
+        // $users = User::orderBy('name', 'asc')->get();
+        $users = User::all();
         $comments = Comment::orderBy('content', 'asc')->get();
         return view('comments.index', ['users' => $users, 'chosenUser' => $chosenUser, 'comments' => $comments]);
     }
@@ -36,7 +43,7 @@ class CommentController extends Controller
         // return view('comments.create', ['users' => $users, 'posts' => $posts]);
 
         $user = Auth() -> user();
-        $posts = Post::all();
+        $posts = Post::orderBy('title', 'asc')->get();
         return view('comments.create', ['user' => $user, 'posts' => $posts]);
     }
 

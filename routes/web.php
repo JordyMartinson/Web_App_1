@@ -38,9 +38,11 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware(['auth']);
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show')->middleware(['auth']);
 
-Route::get('/comments', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth']);
+// Route::get('/comments/index', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth']);
+
 Route::get('/comments/create', [commentController::class, 'create'])->name('comments.create')->middleware(['auth']);
 Route::post('/comments', [commentController::class, 'store'])->name('comments.store')->middleware(['auth']);
+Route::get('/comments/index/{id}', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth'])->where(['id' => '[0-9]+']);
 Route::get('/comments/{id}', [commentController::class, 'show'])->name('comments.show')->middleware(['auth']);
 
 Route::post('logout', [SessionController::class], 'destroy');

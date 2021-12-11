@@ -6,8 +6,8 @@
 
     <form method = "POST" action = "{{route('posts.store')}}">
         @csrf
-        <p>Title: <input type = "text" name = "title" id="title" onfocus ="this.value = ''" value = "Enter your title here"></p>
-        <p>Content: <input type = "text" name = "content" id="content" onfocus ="this.value = ''" value = "Enter your post here" disabled></p>
+        <p>Title: <input type = "text" name = "title" id="title" value = "{{ old('title') }}" placeholder = "Enter your title here"></p>
+        <p>Content: <input type = "text" name = "content" id="content" value = "{{ old('content') }}" placeholder = "Enter your post here" disabled></p>
         <p>
             <label for="user_id">User: </label>
             <select name="user_id">
@@ -16,7 +16,7 @@
         </p>
 
         <input type = "submit" value = "Submit" id = "submit" disabled>
-        <input type = "reset" value = "Cancel" onclick = "cancel()");>
+        <a href="{{ route('posts.create') }}">Cancel</a>
 
         <script>        
             document.getElementById("title").addEventListener("keyup", function() {

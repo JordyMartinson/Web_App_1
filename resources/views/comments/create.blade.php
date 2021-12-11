@@ -6,7 +6,7 @@
 
     <form method = "POST" action = "{{route('comments.store')}}">
         @csrf
-        <p>Content: <input type = "text" name = "content" id="content" onfocus ="this.value = ''" value = "Enter your comment here"></p>
+        <p>Content: <input type = "text" name = "content" id="content" value = "{{ old('content') }}" placeholder = "Enter your comment here"></p>
 
         <p>
             <label for="user_id">User: </label>
@@ -19,13 +19,17 @@
             <label for="post_id">Post: </label>
             <select name="post_id">
                 @foreach ($posts as $post)
-                    <option value="{{$post -> id}}">{{$post -> title}}</option>
+                    <option value="{{$post -> id}}"
+                        @if ($post->id == old('post_id'))
+                            selected = "selected"
+                        @endif>
+                    {{$post -> title}}</option>
                 @endforeach
             </select>
         </p>
 
         <input type = "submit" value = "Submit" id = "submit" disabled>
-        <input type = "reset" value = "Cancel" onclick = "enableSubmit()");>
+        <a href="{{ route('comments.create') }}">Cancel</a>
 
         <script>        
             document.getElementById("content").addEventListener("keyup", function() {
