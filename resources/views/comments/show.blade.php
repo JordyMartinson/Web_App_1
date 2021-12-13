@@ -22,11 +22,26 @@
         <form method="POST" action="{{ route( 'comments.destroy', ['comment' => $comment] )}}">
             @csrf
             @method('DELETE')
-            {{ Auth::id() }}
-            {{ $comment->user->id}}
             <button type = "submit">Delete</button>
         </form>
         @endif
+
+        @if (Auth::user() ->can('update', $comment))
+        {{-- <form method="POST" action="{{ route( 'comments.edit', ['comment' => $comment] )}}">
+            @csrf
+            @method('POST')
+            <button type = "submit">Edit</button>
+        </form> --}}
+        <a href="{{route('comments.edit', ['comment' => $comment])}}">Edit</a>
+        @endif
+
+        {{-- @if (Auth::user() ->can('update', $comment))
+        <form method="POST" action="{{ route( 'comments.update', ['comment' => $comment] )}}">
+            @csrf
+            @method('POST')
+            <button type = "submit">Edit</button>
+        </form>
+        @endif --}}
 
     </ul>
 

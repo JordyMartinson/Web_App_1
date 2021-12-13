@@ -77,7 +77,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $this->authorize('update', $post);
+        $user = Auth() -> user();
+        return view('posts.edit', ['post' => $post, 'user' => $user]);
     }
 
     /**
@@ -89,7 +91,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+        $validatedData = $request -> validate([
+            'title' => 'required|max:100',
+            'content' => 'required|max:500',
+            'user_id' => 'required'  //change
+        ]);
+        Post::find($post->id)->update([
+            'title' => $validatedData['title'],
+            'content' => $validatedData['content'],
+            'user_id' => $validatedData['user_id']
+        ]);
+        session() -> flash('message', 'Post edited.');
+        return redirect() -> route('posts.index');
     }
 
     /**
@@ -100,6 +114,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $this->authorize('delete', $post);
+        $post->delete();
+        return redirect()->route('posts.index')->with('message', 'Post deleted.');
     }
 }

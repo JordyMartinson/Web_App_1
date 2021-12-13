@@ -93,7 +93,10 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        $this->authorize('update', $comment);
+        $user = Auth() -> user();
+        $posts = Post::orderBy('title', 'asc')->get();
+        return view('comments.edit', ['comment' => $comment, 'user' => $user, 'posts' => $posts]);
     }
 
     /**
@@ -105,10 +108,19 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        // if ($request->user()->cannot('update', $comment)) {
-        //     abort(403);
-        // }
         $this->authorize('update', $comment);
+        $validatedData = $request -> validate([
+            'content' => 'required|max:100',
+            'user_id' => 'required', //change
+            'post_id' => 'required'  //change
+        ]);
+        Comment::find($comment->id)->update([
+            'content' => $validatedData['content'],
+            'user_id' => $validatedData['user_id'],
+            'post_id' => $validatedData['post_id']
+        ]);
+        session() -> flash('message', 'Comment edited.');
+        return redirect() -> route('comments.index');
     }
 
     /**

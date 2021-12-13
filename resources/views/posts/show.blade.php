@@ -32,6 +32,18 @@
     
             <input type = "submit" value = "Submit" id = "submit" disabled>
             <input type = "reset" value = "Cancel" onclick = "enableSubmit()");>
+
+            @if (Auth::user() ->can('update', $post))
+            <a href="{{route('posts.edit', ['post' => $post])}}">Edit</a>
+            @endif
+
+            @if (Auth::user() ->can('delete', $post))
+            <form method="POST" action="{{ route( 'posts.destroy', ['post' => $post] )}}">
+                @csrf
+                @method('DELETE')
+                <button type = "submit">Delete</button>
+            </form>
+            @endif
             
             <script>        
                 document.getElementById("content").addEventListener("keyup", function() {
