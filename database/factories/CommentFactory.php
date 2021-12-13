@@ -16,11 +16,15 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $u = User::has('posts') -> get() -> shuffle() -> first();
+        // $user = User::inRandomOrder() -> first();
+        $user = User::inRandomOrder() -> first();
+        // $user =User::first();
+        $post = Post::inRandomOrder()->first();
+        // echo $user;
         return [
             'content' => $this -> faker -> sentence(rand(3, 5)),
-            'user_id' => $u -> id,
-            'post_id' => $u -> posts() -> inRandomOrder() -> first()
+            'user_id' => $user -> id,
+            'post_id' => $post -> id
         ];
     }
 }

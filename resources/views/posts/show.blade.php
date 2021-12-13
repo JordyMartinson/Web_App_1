@@ -9,10 +9,8 @@
         <p>{{$post -> content}}</p>
         <p>Poster: {{$post -> user -> name}}</p>
         <br>
-
-
-
-        <form method = "POST" action = "{{route('posts.store')}}">
+        
+        <form method = "POST" action = "{{route('comments.store')}}">
             @csrf
             <p>Content: <input type = "text" name = "content" id="content" onfocus ="this.value = ''" value = "Enter your comment here"></p>
     
