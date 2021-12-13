@@ -1,17 +1,15 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 
-@section('title')
-    Posts
-@endsection
+@section('title', 'Users')
 
 @section('content')
 
-    <p>Posts from users: </p>
+    <p>Users: </p>
 
-    <<ul>
-        @foreach ($posts as $post)
-            <<li> {{$post -> name}} </li>
+    <p>
+        @foreach ($users as $user)
+            <li> {{$user -> name}} </li>
         @endforeach
-    </ul>>
+    </p>
 
-@endsection -->
+@endsection
