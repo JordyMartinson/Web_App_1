@@ -19,7 +19,7 @@
         {{-- <button type = "button" id = "btnSelect">Select</button> --}}
         {{-- <a href = >Select</a> --}}
 
-            @if ($chosenUser == "All")
+            {{-- @if ($chosenUser == "All") --}}
                 @foreach ($users as $user)
                 <h3>{{$user -> name}}</h3>
                     @php ($count = $user -> comments() -> count())
@@ -27,13 +27,13 @@
                         -- This user has no comments --
                     @else
                         @for ($i = 0; $i < $count; $i++)
-                            <li><a href="/posts/{{$user->comments[$i]->post->id}}">{{$user -> comments[$i] -> content}}</a></li>
+                            <li><a href="/comments/{{$user->comments[$i]->id}}">{{$user -> comments[$i] -> content}}</a></li>
                         @endfor
                     @endif
                 </p>
                 <br>
                 @endforeach
-            @else
+            {{-- @else
                 <h3>{{$users[$chosenUser] -> name}}</h3>
                 @php ($count = $users[$chosenUser] -> comments() -> count())
                 @if ($count == 0)
@@ -44,9 +44,9 @@
                     @endfor
                 @endif
                 </p>
-                <br>
+                <br> --}}
 
-                @endif
+                {{-- @endif
                 <p id="demo"></p>
 
                 <script>
@@ -58,7 +58,7 @@
                         document.getElementById("demo").innerHTML = xRoute;
                         echo xRoute;
                     }
-                </script>
+                </script> --}}
 
 {{-- <script>
     $(function(){

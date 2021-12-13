@@ -14,7 +14,8 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    // public function index($id)
+    public function index()
     {
         // if ($id = "All") {
         //     $chosenUser = "All";
@@ -22,11 +23,12 @@ class CommentController extends Controller
         // else {
         //     $chosenUser = User::findOrFail($id)->id;
         // }
-        $chosenUser = User::findOrFail($id)->id;
+        // $chosenUser = User::findOrFail($id)->id;
         // $users = User::orderBy('name', 'asc')->get();
         $users = User::all();
         $comments = Comment::orderBy('content', 'asc')->get();
-        return view('comments.index', ['users' => $users, 'chosenUser' => $chosenUser, 'comments' => $comments]);
+        // return view('comments.index', ['users' => $users, 'chosenUser' => $chosenUser, 'comments' => $comments]);
+        return view('comments.index', ['users' => $users, 'comments' => $comments]);
     }
 
     /**
@@ -69,7 +71,7 @@ class CommentController extends Controller
 
         session() -> flash('message', 'Comment created.');
 
-        return redirect() -> route('posts.index');
+        return redirect() -> route('comments.index');
     }
 
     /**
@@ -78,9 +80,8 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comment $comment)
     {
-        $comment = Comment::findOrFail($id);
         return view('comments.show', ['comment' => $comment]);
     }
 
@@ -90,7 +91,7 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -102,9 +103,12 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comment $comment)
     {
-        //
+        // if ($request->user()->cannot('update', $comment)) {
+        //     abort(403);
+        // }
+        $this->authorize('update', $comment);
     }
 
     /**
@@ -113,8 +117,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+        $this->authorize('delete', $comment);
+        $comment->delete();
+        return redirect()->route('comments.index')->with('message', 'Comment deleted.');
     }
 }

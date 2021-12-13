@@ -12,7 +12,7 @@
 
 
 
-        <form method = "POST" action = "{{route('comments.store')}}">
+        <form method = "POST" action = "{{route('posts.store')}}">
             @csrf
             <p>Content: <input type = "text" name = "content" id="content" onfocus ="this.value = ''" value = "Enter your comment here"></p>
     

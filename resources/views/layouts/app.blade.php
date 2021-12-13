@@ -9,7 +9,7 @@
     <body>
         <a href="/home">Home</a>
         <a href="/posts">Posts</a>
-        <a href="/comments/index/1">Comments</a>
+        <a href="/comments/index">Comments</a>
 
         @auth
         <form method ="POST" action="/logout">
