@@ -43,22 +43,22 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 Route::get('/posts/edit/{post}', [PostController::class, 'edit'])->name('posts.edit')->middleware(['auth']);
 Route::post('/posts/{post}', [PostController::class, 'update'])->name('posts.update')->middleware(['auth']);
 
-// Route::get('/comments/index', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth']);
-// Route::get('/comments/create', [CommentController::class, 'create'])->name('comments.create')->middleware(['auth']);
-// Route::post('/comments', [CommentController::class, 'store'])->name('comments.store')->middleware(['auth']);
-// // Route::get('/comments/index/{id}', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth'])->where(['id' => '[0-9]+']);
-// Route::get('/comments/{comment}', [CommentController::class, 'show'])->name('comments.show')->middleware(['auth']);
-// Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware(['auth']);
-// Route::get('/comments/edit/{comment}', [CommentController::class, 'edit'])->name('comments.edit')->middleware(['auth']);
-// Route::post('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update')->middleware(['auth']);
+Route::get('/comments/index', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth']);
+Route::get('/comments/create', [CommentController::class, 'create'])->name('comments.create')->middleware(['auth']);
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store')->middleware(['auth']);
+// Route::get('/comments/index/{id}', [CommentController::class, 'index'])->name('comments.index')->middleware(['auth'])->where(['id' => '[0-9]+']);
+Route::get('/comments/{comment}', [CommentController::class, 'show'])->name('comments.show')->middleware(['auth']);
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware(['auth']);
+Route::get('/comments/edit/{comment}', [CommentController::class, 'edit'])->name('comments.edit')->middleware(['auth']);
+Route::post('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update')->middleware(['auth']);
 
 
 // Route::name('comment.')->group(function () {
-    Route::resource('/comments', CommentController::class);
+    // Route::resource('/comments', CommentController::class);
 // });
 
 Route::name('admin.')->group(function () {
-    Route::resource('/admin/users', UserController::class);
+    Route::resource('/admin/users', AdUserController::class);
 });
 
 Route::post('logout', [SessionController::class], 'destroy');

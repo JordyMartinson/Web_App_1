@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdUserController extends Controller
 {
@@ -14,7 +15,8 @@ class AdUserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(10);
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -80,6 +82,8 @@ class AdUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+
+        return redirect() -> route('admin.users.index');
     }
 }

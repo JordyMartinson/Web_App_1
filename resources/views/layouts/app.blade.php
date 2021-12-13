@@ -9,8 +9,10 @@
     <body>
         <a href="/home">Home</a>
         <a href="/posts">Posts</a>
+        {{-- <a href="{{route('comments.index')}}">Comments</a>
+        <a href="{{route('admin.users.index')}}">Users</a> --}}
         <a href="/comments/index">Comments</a>
-        <a href="{{route('admin.users.index')}}">Users</a>
+        <a href="/admin/users">Users</a>
 
         @auth
         <form method ="POST" action="/logout">
