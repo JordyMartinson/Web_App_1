@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('title', 'Comment Details')
 
@@ -45,4 +45,4 @@
 
     </ul>
 
-@endsection
+@endsection --}}

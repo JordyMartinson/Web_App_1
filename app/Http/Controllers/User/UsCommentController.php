@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
-class AdPostController extends Controller
+class UsCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +16,9 @@ class AdPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
-        return view('admin.posts.index', ['posts' => $posts]);
+        $comments = Comment::where('user_id', Auth::id())->paginate(10);
+        return view('user.comments.index', ['comments' => $comments]);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +38,19 @@ class AdPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request -> validate([
+            'content' => 'required|max:100',
+            // 'user_id' => 'required', //change
+            // 'post_id' => 'required'  //change
+        ]);
+
+        $c = new Comment;
+        $c -> content = $validatedData['content'];
+        $c -> user_id = Auth::id();
+        $c -> post_id = 4; // change
+        $c -> save();
+
+        return response()->json(['success'=>'Comment created.']);
     }
 
     /**
@@ -83,7 +95,13 @@ class AdPostController extends Controller
      */
     public function destroy($id)
     {
-        Post::destroy($id);
-        return redirect() -> route('admin.posts.index');
+        Comment::destroy($id);
+        return redirect() -> route('user.comments.index');
+    }
+
+    public function apiIndex()
+    {
+        $comments = Comments::all();
+        return $comments;
     }
 }

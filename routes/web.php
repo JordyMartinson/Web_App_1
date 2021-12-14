@@ -1,13 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\SessionController;
+// use App\Http\Controllers\UserController;
+// use App\Http\Controllers\PostController;
+// use App\Http\Controllers\CommentController;
+// use App\Http\Controllers\SessionController;
 use Admin\AdUserController;
 use Admin\AdPostController;
 use Admin\AdCommentController;
+use User\UsUserController;
+use User\UsPostController;
+use User\UsCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +62,7 @@ Route::get('/home', function () {
     // Route::resource('/comments', CommentController::class);
 // });
 
-Route::name('admin.')->group(function () {
+Route::name('admin.')->middleware('auth')->group(function () {
     
     Route::resource('/admin/users', AdUserController::class);
     Route::resource('/admin/posts', AdPostController::class);
@@ -67,7 +70,17 @@ Route::name('admin.')->group(function () {
     
 });
 
+Route::name('user.')->middleware('auth')->group(function () {
+    
+    Route::resource('/user/users', UsUserController::class);
+    Route::resource('/user/posts', UsPostController::class);
+    Route::resource('/user/comments', UsCommentController::class);
 
+});
+
+Route::get('/user/posts/index/all', [App\Http\Controllers\User\UsPostController::class, 'indexall'])->name('user.posts.indexall')->middleware('auth');
+
+// Route::get('enclosures', [EnclosureController::class, 'page']);
 
 Route::post('logout', [SessionController::class], 'destroy');
 

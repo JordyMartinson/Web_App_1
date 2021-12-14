@@ -1,5 +1,49 @@
 @extends('layouts.app')
 
+@section('title', 'My Comments')
+
+@section('content')
+
+@php ($count = $comments -> count())
+@if ($count == 0)
+      <p>You have no comments.</p>
+@else
+    <div>
+        <table>
+            <tr>
+                <th></th>
+                <th>Post</th>
+                <th>Posted by</th>
+                <th>Comment</th>
+
+            </tr>
+            @foreach ($comments as $comment)
+            <tr>
+                <td>{{$comment->user->id}}</td>
+                <td>{{$comment->post->title}}</td>
+                <td>{{$comment->post->user->name}}</td>
+                <td>{{$comment->content}}</td>
+
+                <td><a class="btn" href="{{route('user.comments.edit', $comment->id)}}" role="button">Edit</a></td>
+                <td>
+                    <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_comment_{{$comment->id}}').submit()">Delete</button>
+                    <form id="delete_comment_{{$comment->id}}" action="{{route('user.comments.destroy', $comment->id)}}" method='POST'>
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+        {{ $comments->links() }}
+    </div>
+@endif
+
+@endsection
+
+
+{{-- @extends('layouts.app')
+
 @section('title')
     Comments
 @endsection
@@ -9,19 +53,19 @@
     <p>Comments from users: </p>
 
     {{-- <ul> --}}
-        <label for="selectUser">Choose user: </label>
+        {{-- <label for="selectUser">Choose user: </label>
         <select name="selectUser" id="selectUser" onchange="window.location.href=this.value">
             <option value="All">All</option>
             @foreach ($users as $user)
                 <option value = {{route('comments.index', ['id' => $user->id-1])}}>{{$user->name}}</option> {{-- defaults to first option, correct url but next user --}}
-            @endforeach
-        </select>
+            {{-- @endforeach --}}
+        {{-- </select> --}}
         {{-- <button type = "button" id = "btnSelect">Select</button> --}}
         {{-- <a href = >Select</a> --}}
 
             {{-- @if ($chosenUser == "All") --}}
-                @foreach ($users as $user)
-                <h3>{{$user -> name}}</h3>
+                {{-- @foreach ($users as $user) --}}
+                {{-- <h3>{{$user -> name}}</h3>
                     @php ($count = $user -> comments() -> count())
                     @if ($count == 0)
                         -- This user has no comments --
@@ -31,8 +75,8 @@
                         @endfor
                     @endif
                 </p>
-                <br>
-                @endforeach
+                <br> --}}
+                {{-- @endforeach --}}
             {{-- @else
                 <h3>{{$users[$chosenUser] -> name}}</h3>
                 @php ($count = $users[$chosenUser] -> comments() -> count())
@@ -114,6 +158,6 @@
       </script> --}}
 
 
-    <a href = "{{route('comments.create')}}">Create Comment</a>
+    {{-- <a href = "{{route('comments.create')}}">Create Comment</a> --}}
 
-@endsection
+{{-- @endsection --}}

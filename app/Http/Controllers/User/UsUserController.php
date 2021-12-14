@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Post;
 
-class AdPostController extends Controller
+class UsUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,8 @@ class AdPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
-        return view('admin.posts.index', ['posts' => $posts]);
+        //
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -83,7 +80,6 @@ class AdPostController extends Controller
      */
     public function destroy($id)
     {
-        Post::destroy($id);
-        return redirect() -> route('admin.posts.index');
+        //
     }
 }

@@ -23,13 +23,13 @@
                 <td>{{$comment->post->title}}</td>
                 {{-- <td>{{$user->email}}</td> --}}
                 {{-- <td><a class="btn" href="{{route('admin.users.edit', $user->id)}}" role="button">Edit</a></td> --}}
-                {{-- <td> --}}
-                    {{-- <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_user_{{$user->id}}').submit()">Delete</button>
-                    <form id="delete_comment_{{$user->id}}" action="{{route('admin.comments.destroy', $user->id)}}" method='POST'>
+                <td>
+                    <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_comment_{{$comment->id}}').submit()">Delete</button>
+                    <form id="delete_comment_{{$comment->id}}" action="{{route('admin.comments.destroy', $comment->id)}}" method='POST'>
                         @csrf
                         @method('DELETE')
-                    </form> --}}
-                {{-- </td> --}}
+                    </form>
+                </td>
             </tr>
             @endforeach
         </table>

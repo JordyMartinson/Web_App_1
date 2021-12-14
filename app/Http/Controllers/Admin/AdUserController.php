@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
 class AdUserController extends Controller
 {
@@ -16,8 +17,18 @@ class AdUserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('admin.users.index', ['users' => $users]);
+        // if(Gate::denies('loggedIn')) {
+
+        // }
+
+        if(Gate::allows('isAdmin')) {
+            $users = User::paginate(10);
+            return view('admin.users.index', ['users' => $users]);
+        }
+        else {
+            return redirect()->route('home')->with('message', 'You must be an admin to access this page.');
+        }
+
     }
 
     /**
@@ -86,7 +97,6 @@ class AdUserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-
         return redirect() -> route('admin.users.index');
     }
 }

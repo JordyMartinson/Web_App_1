@@ -30,9 +30,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime'
     ];
 
-    public function setPasswordAttribute($password) {
-        $this->attributes['password'] = Hash::make($password);
-    }
+    // public function setPasswordAttribute($password) {
+    //     $this->attributes['password'] = Hash::make($password);
+    // }
 
     public function posts()
     {
@@ -47,5 +47,17 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role');
+    }
+
+
+    
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
+
+    public function hasRoles($role)
+    {
+        return null !== $this->roles()->whereIn('name', $role)->first();
     }
 }

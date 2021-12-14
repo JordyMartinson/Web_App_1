@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('title', 'Comment')
 
@@ -49,4 +49,4 @@
         </script>
 
     </form>
-@endsection
+@endsection --}}

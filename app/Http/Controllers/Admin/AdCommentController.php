@@ -82,6 +82,7 @@ class AdCommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::destroy($id);
+        return redirect() -> route('admin.comments.index');
     }
 }
