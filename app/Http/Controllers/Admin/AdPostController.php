@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Role;
+use App\Models\Post;
 
-class AdUserController extends Controller
+class AdPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class AdUserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('admin.users.index', ['users' => $users]);
+        $posts = Post::paginate(10);
+        return view('admin.posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -27,7 +26,7 @@ class AdUserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create', ['roles' => Role::all()]);
+        //
     }
 
     /**
@@ -38,9 +37,7 @@ class AdUserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->except(['_token', 'roles']));
-        $user->roles()->sync($request->roles);
-        return redirect()->route('admin.users.index');
+        //
     }
 
     /**
@@ -85,8 +82,7 @@ class AdUserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-
-        return redirect() -> route('admin.users.index');
+        Post::destroy($id);
+        return redirect() -> route('admin.posts.index');
     }
 }

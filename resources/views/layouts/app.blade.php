@@ -8,10 +8,11 @@
     </head>
     <body>
         <a href="/home">Home</a>
-        <a href="/posts">Posts</a>
+
         {{-- <a href="{{route('comments.index')}}">Comments</a>
         <a href="{{route('admin.users.index')}}">Users</a> --}}
-        <a href="/comments/index">Comments</a>
+        <a href="/admin/posts">Posts</a>
+        <a href="/admin/comments">Comments</a>
         <a href="/admin/users">Users</a>
 
         @auth
@@ -39,9 +40,6 @@
 
         <div>
             @yield('content')
-        </div>
-        <div>
-            @yield('commenting')
         </div>
         
     </body>

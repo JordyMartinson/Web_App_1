@@ -9,7 +9,7 @@
     <div>
         <table>
             <tr>
-                <th>ID Number</th>
+                <th>User ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th></th>

@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <a href = "{{route('posts.create')}}">Create Post</a>
+    <a href = "{{route('admin.posts.create')}}">Create Post</a>
     <br>
-    <a href = "{{route('comments.create')}}">Create Comment</a>
+    <a href = "/comments/create">Create Comment</a>
 @endsection
