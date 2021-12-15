@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <form method="POST" action = "{{route('user.posts.update', ['post' => $post])}}">
+    <form method="POST" action = "{{route('admin.posts.update', ['post' => $post])}}">
         @method('PUT')
         @csrf
 

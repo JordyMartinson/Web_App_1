@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Gate;
+
 class UsCommentController extends Controller
 {
     /**
@@ -16,41 +18,53 @@ class UsCommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::where('user_id', Auth::id())->paginate(10);
-        return view('user.comments.index', ['comments' => $comments]);
+
+        $c = Comment::where('user_id', auth()->id())->first();
+        if(is_null($c)) {
+            $comments = Comment::where('user_id', auth()->id())->paginate(10);
+            return view('user.comments.index', ['comments' => $comments]);
+        }
+        
+        if(Gate::allows('isUser') && (Gate::allows('ownsComment', $c))) {
+            $comments = Comment::where('user_id', auth()->id())->paginate(10);
+            return view('user.comments.index', ['comments' => $comments]);
+        }
+        else {
+            return redirect()->route('home')->with('message', 'You must be the comment owner to access this page.');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     //
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,9 +72,14 @@ class UsCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comment $comment)
     {
-        //
+        if(Gate::allows('ownsComment', $comment)) {
+            return view('user.comments.edit', ['comment' => $comment]);
+        }
+        else {
+            return redirect()->route('home')->with('message', 'You must be the comment owner to access this page.');
+        }
     }
 
     /**
@@ -70,9 +89,20 @@ class UsCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comment $comment)
     {
-        //
+
+        if(Gate::allows('ownsComment', $comment)) {
+            Comment::find($comment->id)->update([
+                'content' => $request['content']
+            ]);
+
+            session() -> flash('message', 'Comment edited.');
+            return redirect() -> route('user.comments.index');
+        }
+        else {
+            return redirect()->route('home')->with('message', 'You must be the comment owner to access this page.');
+        }
     }
 
     /**
@@ -81,36 +111,15 @@ class UsCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        Comment::destroy($id);
+        if(Gate::allows('ownsComment', $comment)){
+        Comment::destroy($comment->id);
         return redirect() -> route('user.comments.index');
+        }else {
+            return redirect()->route('home')->with('message', 'You must be the comment owner or an admin to delete this comment.');
+
     }
+}
 
-    public function page()
-    {
-        return view('user.comments.index');
-    }
-
-    public function apiIndex()
-    {
-        $comments = Comment::all();
-        return $comments;
-    }
-
-    public function apiStore(Request $request){
-
-        $validatedData = $request -> validate([
-            'content' => 'required|max:100',
-            // 'user_id' => 'required', //change
-            // 'post_id' => 'required'  //change
-        ]);
-
-        $c = new Comment;
-        $c -> content = $request['content'];
-        $c -> user_id = 1; // change
-        $c -> post_id = 1; // change
-        $c -> save();
-        return $c;
-    }
 }

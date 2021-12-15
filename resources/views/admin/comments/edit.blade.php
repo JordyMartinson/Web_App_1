@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <form method="POST" action = "{{route('user.comments.update', ['comment' => $comment])}}">
+    <form method="POST" action = "{{route('admin.comments.update', ['comment' => $comment])}}">
         @method('PUT')
         @csrf
 

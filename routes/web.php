@@ -7,6 +7,7 @@ use Admin\AdCommentController;
 use User\UsUserController;
 use User\UsPostController;
 use User\UsCommentController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use User\UsCommentController;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -35,9 +36,16 @@ Route::get('/admin/posts/index/all', [App\Http\Controllers\Admin\AdPostControlle
 Route::get('/admin/users/index/all', [App\Http\Controllers\Admin\AdUserController::class, 'indexall'])->name('admin.users.indexall')->middleware('auth');
 Route::get('/admin/comments/index/all', [App\Http\Controllers\Admin\AdCommentController::class, 'indexall'])->name('admin.comments.indexall')->middleware('auth');
 Route::get('/user/posts/index/all', [App\Http\Controllers\User\UsPostController::class, 'indexall'])->name('user.posts.indexall')->middleware('auth');
+Route::get('/admin/comments', [App\Http\Controllers\Admin\AdCommentController::class, 'index'])->name('admin.comments.index')->middleware('auth');
+Route::get('/user/posts/create', [App\Http\Controllers\User\UsPostController::class, 'create']);
 
-Route::get('/comments', [App\Http\Controllers\User\UsCommentController::class, 'index']);
-Route::get('/user/posts/{id}', [App\Http\Controllers\User\UsPostController::class, 'show']);
+Route::get('/image', [ ImageController::class, 'image' ])->name('image.upload');
+Route::post('/image', [ ImageController::class, 'imagePost' ])->name('image.upload.post');
+
+
+// Route::get('/comments', [App\Http\Controllers\User\UsCommentController::class, 'index']);
+Route::get('/user/posts/{post}', [App\Http\Controllers\User\UsPostController::class, 'show']);
+Route::get('/{post}/comments', [App\Http\Controllers\User\UsCommentController::class, 'index']);
 
 Route::name('admin.')->middleware('auth')->group(function () {
     Route::resource('/admin/users', AdUserController::class);

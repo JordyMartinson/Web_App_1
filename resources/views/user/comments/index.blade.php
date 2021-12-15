@@ -11,17 +11,13 @@
     <div>
         <table>
             <tr>
-                <th>Post</th>
-                <th>Posted by</th>
                 <th>Comment</th>
-
+                <th>Post</th>
             </tr>
             @foreach ($comments as $comment)
             <tr>
-                <td><a href="{{route('user.posts.show', $comment->post->id)}}">{{$comment->post->title}}</td>
-                <td>{{$comment->post->user->name}}</td>
                 <td>{{$comment->content}}</td>
-
+                <td><a href="{{route('user.posts.show', $comment->post->id)}}">{{$comment->post->title}}</td>
                 <td class = "centered"><a class="btn" href="{{route('user.comments.edit', $comment->id)}}" role="button">Edit</a></td>
                 <td class = "centered">
                     <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_comment_{{$comment->id}}').submit()">Delete</button>

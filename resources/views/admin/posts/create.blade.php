@@ -4,13 +4,13 @@
 
 @section('content')
 
-    <form method = "POST" action = "{{route('user.posts.store')}}">
+    <form method = "POST" action = "{{route('admin.posts.store')}}">
         @csrf
         <p>Title: <input type = "text" name = "title" id="title" value = "{{ old('title') }}" placeholder = "Enter your title here"></p>
         <p>Content: <input type = "text" name = "content" id="content" value = "{{ old('content') }}" placeholder = "Enter your post here" disabled></p>
 
         <input type = "submit" value = "Submit" id = "submit" disabled>
-        <a href="{{ route('user.posts.create') }}">Cancel</a>
+        <a href="{{ route('admin.posts.create') }}">Cancel</a>
 
         <script>        
             document.getElementById("title").addEventListener("keyup", function() {
@@ -29,6 +29,8 @@
                 document.getElementById('submit').setAttribute("disabled", null);
             }});
         </script>
+
+
 
         <script>
             function cancel() {

@@ -3,6 +3,8 @@
 @section('title', 'All Posts')
 
 @section('content')
+<div><a class="btn" href="{{route('user.posts.create')}}" role="button">Create</a></div>
+<div>
 
 @php ($count = $posts -> count())
 @if ($count == 0)
@@ -16,14 +18,14 @@
             </tr>
             @foreach ($posts as $post)
             <tr>
-                <td><a href="{{route('user.posts.show', $post->id)}}">{{$post->title}}</a></td>
+                {{-- @php(dd($post)) --}}
+                <td><a href="{{route('user.posts.show', $post)}}">{{$post->title}}</a></td>
                 <td>{{$post->user->name}}</td>
-                <td><a class="btn" href="{{route('user.posts.show', $post->id)}}" role="button">Comment</a></td>
             </tr>
             @endforeach
         </table>
         {{ $posts->links() }}
     </div>
 @endif
-
+</div>
 @endsection

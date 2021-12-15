@@ -43,7 +43,7 @@
                 }
             },
             mounted() {
-                axios.get("{{route('api.comments.index')}}").then(response=>{
+                axios.get("{{route('api.comments.index', $post->id)}}").then(response=>{
                     this.comments = response.data;
                 }).catch(response=>{
                     console.log(response);

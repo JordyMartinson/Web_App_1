@@ -26,6 +26,11 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    font-size:20px;
+    font-weight: bold;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -47,4 +52,12 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #e0e0e0;
+}
+
+.btn {
+    color: blue;
+}
+
+.btn:hover {
+    color: purple;
 }

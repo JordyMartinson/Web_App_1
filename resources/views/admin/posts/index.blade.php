@@ -4,6 +4,8 @@
 
 @section('content')
 
+<div><a class="btn" href="{{route('admin.posts.create')}}" role="button">Create</a></div>
+<div>
 @php ($count = $posts -> count())
 @if ($count == 0)
       <p>You have no posts.</p>
@@ -33,5 +35,5 @@
         {{ $posts->links() }}
     </div>
 @endif
-
+</div>
 @endsection

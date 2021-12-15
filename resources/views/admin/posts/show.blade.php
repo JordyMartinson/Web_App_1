@@ -5,15 +5,17 @@
 @section('content')
 
 <body>
+    <div class = "container">
         <h2><b>{{$post -> title}}</b></h2>
         <p>{{$post -> content}}</p>
-        <p>Posted by {{$post -> user -> name}}</p>  
+        <p>Posted by {{$post -> user -> name}}</p>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"
         integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <h1>Comments</h1>
+    <h2>Comments</h2>
     <div id="root">
         <ul>
             <li v-for="comment in comments">@{{ comment.content }}</li>
@@ -43,7 +45,7 @@
                 }
             },
             mounted() {
-                axios.get("{{route('api.comments.index')}}").then(response=>{
+                axios.get("{{route('api.comments.index', $post->id)}}").then(response=>{
                     this.comments = response.data;
                 }).catch(response=>{
                     console.log(response);
