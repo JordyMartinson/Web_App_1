@@ -15,8 +15,14 @@ class AdCommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::paginate(10);
+        $comments = Comment::where('user_id', auth()->id())->paginate(10);
         return view('admin.comments.index', ['comments' => $comments]);
+    }
+
+    public function indexAll()
+    {
+        $comments = Comment::paginate(10);
+        return view('admin.comments.indexall', ['comments' => $comments]);
     }
 
     /**

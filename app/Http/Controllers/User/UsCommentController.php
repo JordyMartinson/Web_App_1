@@ -38,19 +38,7 @@ class UsCommentController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request -> validate([
-            'content' => 'required|max:100',
-            // 'user_id' => 'required', //change
-            // 'post_id' => 'required'  //change
-        ]);
-
-        $c = new Comment;
-        $c -> content = $validatedData['content'];
-        $c -> user_id = Auth::id();
-        $c -> post_id = 4; // change
-        $c -> save();
-
-        return response()->json(['success'=>'Comment created.']);
+        //
     }
 
     /**
@@ -99,9 +87,30 @@ class UsCommentController extends Controller
         return redirect() -> route('user.comments.index');
     }
 
+    public function page()
+    {
+        return view('user.comments.index');
+    }
+
     public function apiIndex()
     {
-        $comments = Comments::all();
+        $comments = Comment::all();
         return $comments;
+    }
+
+    public function apiStore(Request $request){
+
+        $validatedData = $request -> validate([
+            'content' => 'required|max:100',
+            // 'user_id' => 'required', //change
+            // 'post_id' => 'required'  //change
+        ]);
+
+        $c = new Comment;
+        $c -> content = $request['content'];
+        $c -> user_id = 1; // change
+        $c -> post_id = 1; // change
+        $c -> save();
+        return $c;
     }
 }

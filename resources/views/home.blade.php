@@ -4,9 +4,9 @@
 
 @section('content')
 @if(Gate::allows('isAdmin'))
-    <a href = "{{route('admin.posts.create')}}">Create Post</a>
-    <a href = "{{route('admin.posts.create')}}">Create User</a>
+    <p><a href = "{{route('admin.posts.create')}}">Create Post</a></p>
+    <p><a href = "{{route('admin.users.create')}}">Create User</a></P>
 @else
-    <a href = "{{route('user.posts.create')}}">Create Post</a>
+    <p><a href = "{{route('user.posts.create')}}">Create Post</a></p>
 @endif
 @endsection

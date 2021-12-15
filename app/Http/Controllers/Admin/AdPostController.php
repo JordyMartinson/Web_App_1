@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 
 class AdPostController extends Controller
 {
@@ -15,8 +16,14 @@ class AdPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::where('user_id', auth()->id())->paginate(10);
         return view('admin.posts.index', ['posts' => $posts]);
+    }
+
+    public function indexAll()
+    {
+        $posts = Post::paginate(10);
+        return view('admin.posts.indexall', ['posts' => $posts]);
     }
 
 
@@ -49,7 +56,9 @@ class AdPostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $comments = Comment::all();
+        return view('admin.posts.show', ['post' => $post, 'comments' => $comments]);
     }
 
     /**

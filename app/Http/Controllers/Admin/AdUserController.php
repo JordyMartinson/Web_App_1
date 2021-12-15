@@ -28,7 +28,12 @@ class AdUserController extends Controller
         else {
             return redirect()->route('home')->with('message', 'You must be an admin to access this page.');
         }
+    }
 
+    public function indexAll()
+    {
+        $users = User::paginate(10);
+        return view('admin.users.indexall', ['users' => $users]);
     }
 
     /**

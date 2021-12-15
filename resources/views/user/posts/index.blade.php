@@ -16,11 +16,11 @@
             </tr>
             @foreach ($posts as $post)
             <tr>
-                <td>{{$post->title}}</td>
+                <td><a href="{{route('user.posts.show', $post->id)}}">{{$post->title}}</td>
                 <td>{{$post->content}}</td>
 
-                <td><a class="btn" href="{{route('user.posts.edit', $post->id)}}" role="button">Edit</a></td>
-                <td>
+                <td class = "centered"><a class="btn" href="{{route('user.posts.edit', $post->id)}}" role="button">Edit</a></td>
+                <td class = "centered">
                     <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_post_{{$post->id}}').submit()">Delete</button>
                     <form id="delete_post_{{$post->id}}" action="{{route('user.posts.destroy', $post->id)}}" method='POST'>
                         @csrf
@@ -35,35 +35,3 @@
 @endif
 
 @endsection
-
-
-{{-- @extends('layouts.app')
-
-@section('title')
-    Posts
-@endsection
-
-@section('content')
-
-    <p>Posts from users: </p>
-
-    <ul>
-        @foreach ($users as $user)
-            <h3>{{$user -> name}}</h3>
-                @php ($count = $user -> posts() -> count())
-                @if ($count == 0)
-                    -- This user has no posts --
-                @else
-                    @for ($i = 0; $i < $count; $i++)
-                        <li><a href="/posts/{{$user->posts[$i]->id}}">{{$user -> posts[$i] -> title}}</a></li>
-                    @endfor
-                @endif
-
-            </p>
-            <br>
-        @endforeach
-    </ul>
-
-    <a href = "{{route('posts.create')}}">Create Post</a>
-
-@endsection--}}

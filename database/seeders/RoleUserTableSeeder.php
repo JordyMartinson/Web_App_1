@@ -21,5 +21,11 @@ class RoleUserTableSeeder extends Seeder
                 $roles-> random(1)->pluck('id')
             );
         });
+
+        $roleA = Role::where('id', 1)->get();
+        User::get()[0]->roles()->attach($roleA);
+
+        $roleU = Role::where('id', 2)->get();
+        User::get()[1]->roles()->attach($roleU);
     }
 }

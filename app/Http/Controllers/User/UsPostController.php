@@ -17,7 +17,7 @@ class UsPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id', Auth::id())->paginate(10);
+        $posts = Post::where('user_id', auth()->id())->paginate(10);
         return view('user.posts.index', ['posts' => $posts]);
     }
 
@@ -54,11 +54,12 @@ class UsPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        $comments = Comment::where('post_id', $post->id)->paginate(10);
-        // echo $comments;
-        return view('user.posts.show', ['post' => $post, 'comments' => $comments, 'user' => Auth()->user()]);
+
+        $post = Post::findOrFail($id);
+        $comments = Comment::all(); // find specific
+        return view('user.posts.show', ['post' => $post, 'comments' => $comments]);
     }
 
     /**
@@ -94,5 +95,27 @@ class UsPostController extends Controller
     {
         Post::destroy($id);
         return redirect() -> route('user.posts.index');
+    }
+
+    public function apiIndex()
+    {
+        $comments = Comment::where('post_id', $post);
+        return $comments;
+    }
+
+    public function apiStore(Request $request){
+
+        // $validatedData = $request -> validate([
+        //     'content' => 'required|max:100',
+        //     // 'user_id' => 'required', //change
+        //     // 'post_id' => 'required'  //change
+        // ]);
+
+        $c = new Comment;
+        $c -> content = $request['content'];
+        $c -> user_id = 1; // change
+        $c -> post_id = 1; // change
+        $c -> save();
+        return $c;
     }
 }

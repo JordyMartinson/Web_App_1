@@ -7,7 +7,7 @@
 <body>
         <h2><b>{{$post -> title}}</b></h2>
         <p>{{$post -> content}}</p>
-        <p>Poster: {{$post -> user -> name}}</p>
+        <p>Posted by {{$post -> user -> name}}</p>  
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"
@@ -53,5 +53,4 @@
     </script>
 </body>
 </html>
-
 @endsection

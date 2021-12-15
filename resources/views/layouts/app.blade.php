@@ -4,74 +4,61 @@
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
         <meta http-equiv = "X-UA-Compatible" content = "ie=edge">
-        <title>Web Application - @yield('title')</title>
-        <style>
-            .topnav {
-                overflow: hidden;
-                background-color: rgb(110, 110, 110);
-            }
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
-        </style>
+        <title> @yield('title')</title>
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/appExtra.css') }}">
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body>
 
         @if (Gate::allows('isAdmin')) 
             <div class = "topnav">
                 <a class="active" href="/home">Home</a>
-                <a href="/admin/posts">Posts</a>
-                <a href="/admin/comments">Comments</a>
-                <a href="/admin/users">Users</a>
-                <form method ="POST" action="/logout">
-                    @csrf
-                    <button type = "submit">Logout</button>
-                </form>
+                <a href="/admin/posts/index/all">All Posts</a>
+                <a href="/admin/comments/index/all">All Comments</a>
+                <a href="/admin/users/index/all">All Users</a>
+                <a href="/admin/posts">My Posts</a>
+                <a href="/admin/comments">My Comments</a>
+            </div>
+        @elseif (Gate::allows('isUser'))
+            <div class = "topnav">
+                <a class="active" href="/home">Home</a>
+                <a href="/user/posts/index/all">All Posts</a>
+                <a href="/user/posts">My Posts</a>
+                <a href="/user/comments">My Comments</a>
             </div>
         @else
             <div class = "topnav">
                 <a class="active" href="/home">Home</a>
-                <a href="/user/posts/index/all">Posts</a>
-                <a href="/user/posts">My Posts</a>
-                <a href="/user/comments">My Comments</a>
-                @auth
-                <form method ="POST" action="/logout">
-                    @csrf
-                    <button type = "submit">Logout</button>
-                </form>
-                @endauth
-            </div>  
-            @endif
-        {{-- @else
-            <div class = "topnav">
-                <a class="active" href="/home">Home</a>
-                <a href="/admin/posts">Posts</a>
-                <a href="/admin/comments">Comments</a>
-                <a href="/admin/users">Users</a>
-                @auth
-                <form method ="POST" action="/logout">
-                    @csrf
-                    <button type = "submit">Logout</button>
-                </form>
-                @endauth
             </div>
-            @endif --}}
+        @endif
+
+            <div class = "form-inline my-2 my-lg-0">
+                @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                    <form method ="POST" action="/logout">
+                        @csrf
+                        <button type = "submit">Logout</button>
+                    </form>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+            </div>
 
 
-        
-
-        {{-- <a href="{{route('comments.index')}}">Comments</a>
-        <a href="{{route('admin.users.index')}}">Users</a> --}}
-
-
-
-
-        <h1>Web Application - @yield('title')</h1>
 
         @if ($errors->any())
         <div>
@@ -87,13 +74,12 @@
             <p><b>{{session('message')}}</b></p>
         @endif
 
-        <div>
-            @yield('content')
-        </div>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-        {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/todo.js') }}" defer></script> --}}
+        <main class="container">
+            <h1>@yield('title')</h1>
+            <div class = "container">
+                @yield('content')
+            </div>
+        </main>
 
     </body>
 </html>

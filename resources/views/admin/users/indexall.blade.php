@@ -4,7 +4,7 @@
 
 @section('content')
 
-{{-- <div><a class="btn" href="{{route('admin.users.create')}}" role="button">Create</a></div>
+<div><a class="btn" href="{{route('admin.users.create')}}" role="button">Create</a></div>
 
     <div>
         <table>
@@ -32,6 +32,6 @@
             @endforeach
         </table>
         {{ $users->links() }}
-    </div> --}}
+    </div>
 
 @endsection
