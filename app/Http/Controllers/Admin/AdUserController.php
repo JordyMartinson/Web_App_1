@@ -50,7 +50,7 @@ class AdUserController extends Controller
         if(Gate::allows('isAdmin')) {
             $validatedData = $request -> validate([
                 'name' => 'required',
-                'email' => 'required',
+                'email' => 'required|email',
                 'password' => 'required'
             ]);
 

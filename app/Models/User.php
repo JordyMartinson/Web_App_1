@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return null !== $this->roles()->whereIn('name', $role)->first();
     }
+
+    public function account()
+    {
+        return $this -> hasOne('App\Models\Account');
+    }
 }

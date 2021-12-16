@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Role;
+use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
@@ -28,6 +28,6 @@ class UserTableSeeder extends Seeder
         $uUser->password = Hash::make("blackberry");
         $uUser->save();
 
-        User::factory() -> count(20) -> create();
+        User::factory() -> count(20) -> hasAccount() -> create();
     }
 }
