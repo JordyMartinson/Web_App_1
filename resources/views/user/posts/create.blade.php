@@ -9,8 +9,8 @@
     <p>Title: <input type = "text" name = "title" id="title" value = "{{ old('title') }}" placeholder = "Enter your title here"></p>
     <p>Content: <input type = "text" name = "content" id="content" value = "{{ old('content') }}" placeholder = "Enter your post here" disabled></p>
 
-    <input type = "submit" value = "Submit" id = "submit" disabled>
-    <a href="{{ route('user.posts.create') }}">Cancel</a>
+    <input class ="btn" type = "submit" value = "Submit" id = "submit" disabled>
+    <a class = "btn" href="{{ route('user.posts.create') }}">Cancel</a>
 
     <script>        
         document.getElementById("title").addEventListener("keyup", function() {

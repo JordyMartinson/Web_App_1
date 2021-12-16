@@ -18,7 +18,7 @@
             </tr>
             @foreach ($posts as $post)
             <tr>
-                <td><a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</td>
+                <td><a class="btn" href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</td>
                 <td>{{$post->content}}</td>
 
                 <td class = "centered"><a class="btn" href="{{route('admin.posts.edit', $post->id)}}" role="button">Edit</a></td>
