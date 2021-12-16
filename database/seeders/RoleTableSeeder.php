@@ -15,8 +15,6 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        // Role::factory()->count(10)->create();
-
         DB::table('roles')->insert([
             'name' => 'Admin'
         ]);

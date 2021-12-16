@@ -6,7 +6,9 @@
 
 @php ($count = $comments -> count())
 @if ($count == 0)
-      <p>You have no comments.</p>
+<div>
+    <p>You have no comments.</p>
+    </div>
 @else
     <div>
         <table>
@@ -17,7 +19,7 @@
             @foreach ($comments as $comment)
             <tr>
                 <td>{{$comment->content}}</td>
-                <td><a href="{{route('admin.posts.show', $comment->post->id)}}">{{$comment->post->title}}</td>
+                <td><a class="btn" href="{{route('admin.posts.show', $comment->post->id)}}">{{$comment->post->title}}</td>
                 <td class = "centered"><a class="btn" href="{{route('admin.comments.edit', $comment->id)}}" role="button">Edit</a></td>
                 <td class = "centered">
                     <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_comment_{{$comment->id}}').submit()">Delete</button>

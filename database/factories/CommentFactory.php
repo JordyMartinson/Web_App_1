@@ -16,11 +16,8 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        // $user = User::inRandomOrder() -> first();
         $user = User::inRandomOrder() -> first();
-        // $user =User::first();
         $post = Post::inRandomOrder()->first();
-        // echo $user;
         return [
             'content' => $this -> faker -> sentence(rand(3, 5)),
             'user_id' => $user -> id,

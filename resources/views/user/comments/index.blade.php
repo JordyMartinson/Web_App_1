@@ -17,7 +17,7 @@
             @foreach ($comments as $comment)
             <tr>
                 <td>{{$comment->content}}</td>
-                <td><a href="{{route('user.posts.show', $comment->post->id)}}">{{$comment->post->title}}</td>
+                <td><a class="btn" href="{{route('user.posts.show', $comment->post->id)}}">{{$comment->post->title}}</td>
                 <td class = "centered"><a class="btn" href="{{route('user.comments.edit', $comment->id)}}" role="button">Edit</a></td>
                 <td class = "centered">
                     <button class="btn" onclick="event.preventDefault(); document.getElementById('delete_comment_{{$comment->id}}').submit()">Delete</button>

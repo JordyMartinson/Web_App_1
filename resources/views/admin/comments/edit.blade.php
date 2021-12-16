@@ -18,7 +18,7 @@
             <label>Your comment: </label>
             <input type = "text" name = "content" id="content" value = "{{ $comment -> content }}" placeholder = "Enter your comment here"></p>
         </div>
-        <button type = "submit">Submit</button>
+        <button class="btn" type = "submit">Submit</button>
     </form>
 
 @endsection

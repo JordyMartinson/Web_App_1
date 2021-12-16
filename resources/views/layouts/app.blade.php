@@ -40,18 +40,19 @@
         @endif
 
             <div class = "form-inline my-2 my-lg-0">
+                {{-- <div> --}}
                 @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                     <form method ="POST" action="/logout">
                         @csrf
-                        <button type = "submit">Logout</button>
+                        <button class="btn" type = "submit">Logout</button>
                     </form>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+                        <a class="btn" href="{{ route('login') }}">Log in</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                            <a class="btn" href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
                 </div>

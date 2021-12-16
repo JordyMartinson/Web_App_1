@@ -45,6 +45,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Give new user the 'User' role on signup
         $user->roles()->sync(2, $user->id);
 
         event(new Registered($user));

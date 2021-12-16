@@ -4,32 +4,30 @@
 
 @section('content')
 
-    <form method="POST" action = "{{route('admin.users.update', ['user' => $user])}}">
-        @method('PUT')
-        @csrf
+<form method="POST" action = "{{route('admin.users.update', ['user' => $user])}}">
+    @method('PUT')
+    @csrf
 
-        <div>
-            <label>Name: {{$user->name}}</label>
+    <div>
+        <label>Name: {{$user->name}}</label>
+    </div>
+    <div>
+        <label>Email Address: {{$user->email}}</label>
+    </div>
+    <div>
+        @foreach ($roles as $role)
+        <div class = "form-check">
+            @if ($user->hasRole($role->name) == 1)
+            <input class = "form-check-input" name="roles[]" type ="checkbox" value="{{ $role->id }}" id="{{$role->name}}" checked>
+            @else
+            <input class = "form-check-input" name="roles[]" type ="checkbox" value="{{ $role->id }}" id="{{$role->name}}">
+            @endif
+            <label for="{{$role->name}}">{{$role->name}}</label>
         </div>
-        <div>
-            <label>Email Address: {{$user->email}}</label>
-        </div>
-
-        <div>
-            @foreach ($roles as $role)
-            <div class = "form-check">
-                @if ($user->hasRole($role->name) == 1)
-                <input class = "form-check-input" name="roles[]" type ="checkbox" value="{{ $role->id }}" id="{{$role->name}}" checked>
-                @else
-                <input class = "form-check-input" name="roles[]" type ="checkbox" value="{{ $role->id }}" id="{{$role->name}}">
-                @endif
-                <label for="{{$role->name}}">{{$role->name}}</label>
-            </div>
-                
-            @endforeach
-        </div>
-        <button type = "submit">Submit</button>
-    </form>
+        @endforeach
+    </div>
+    <button class="btn" type = "submit">Submit</button>
+</form>
 
 @endsection
 
